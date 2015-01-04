@@ -1,0 +1,3 @@
+[submodule "af"]
+	path = af
+	url = git@github.com:titannanode/applicationframe

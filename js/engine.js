@@ -1,0 +1,1 @@
+$('application').new('weather');

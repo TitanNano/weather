@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<head>
+	<title>Weather</title>
+	<link rel="stylesheet" type="text/css" href="css/index.css">
+	<meta charset="utf-8">
+</head>
+<body>
+	<div class="sheet hidden">
+		<div class="bg default"></div>
+		<div class="spinner">
+			<div class="box one"><span class="dot"></span></div>
+			<div class="box two"><span class="dot"></span></div>
+			<div class="box three"><span class="dot"></span></div>
+			<div class="box four"><span class="dot"></span></div>
+			<div class="box five"><span class="dot"></span></div>
+		</div>
+	</div>
+	<div class="sheet add">
+		<input type="search" value="" placeholder="enter city name">
+		<div class="results"></div>
+	</div>
+	<template id="sheet">
+		<div class="sheet fadeout">
+			<div class="bg"></div>
+			<div class="bg new"></div>
+			<div class="container">
+				<div class="location"></div>
+				<div class="temp"></div>
+				<div class="type"></div>
+				<div class="wind">
+					<div class="title">Wind</div>
+					<div class="speed">Speed: <value>3.5</value></div>
+					<div class="degree">Direction: <value>255</value></div>
+				</div>
+				<div class="sun">
+					<div class="title">Sun</div>
+					<div class="rise">Rise: <value>08:00</value></div>
+					<div class="set">Set: <value>18:00</value></div>
+				</div>
+			</div>
+		</div>
+	</template>
+	<script type="text/javascript" src="af/af.js"></script>
+	<script type="text/javascript" src="af/modules/core-extensions.js"></script>
+	<script type="text/javascript" src="af/modules/classes.js"></script>
+	<script type="text/javascript" src="af/modules/connections.js"></script>
+	<script type="text/javascript" src="js/engine.js"></script>
+	<script type="text/javascript" src="js/net.js"></script>
+	<script type="text/javascript" src="js/storage.js"></script>
+	<script type="text/javascript" src="js/sheet.js"></script>
+	<script type="text/javascript" src="js/app.js"></script>
+</body>
