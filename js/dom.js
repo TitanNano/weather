@@ -11,8 +11,8 @@ $_('weather').module('DOM', [], function(App, done){
 
 	var dom= function(item){
 
-		var append= function(element, target){
-			return target.appendChild(element);
+		var append= function(element){
+			return this.appendChild(element);
 		};
 
 		var classes= function(){
