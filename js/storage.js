@@ -1,6 +1,7 @@
 $_('weather').module('Storage', [], function(App, ready){
+	var indexedDB= $$.indexedDB || $$.shimIndexedDB;
 	var db= null;
-	var dbRequest= $$.indexedDB.open('weatherDB', 1);
+	var dbRequest= indexedDB.open('weatherDB', 1);
 	
 	dbRequest.onerror= function(){
 		$$.console.error('unable to access the DB!');
@@ -66,6 +67,7 @@ $_('weather').module('Storage', [], function(App, ready){
 				
 				request.onerror= function(){
 					$$.console.error('faild to get all Sheets!');
+					done(list);
 				};
 			});
 		}
