@@ -9,6 +9,7 @@ $_('weather').main(function(){
 	var Sheet = this.modules.Sheet;
 	var Storage = this.modules.Storage;
 	var Net = this.modules.Net;
+	var $D= this.modules.DOM;
 	
 	this.settings= {
 		celsius : true	
@@ -19,10 +20,10 @@ $_('weather').main(function(){
 	
 	this.getNextSheet= function(distance){
 		var sheet= App.sheets[App.index+(distance > 0 ? -1 : 1)];
-		if((distance < 0 && !sheet) || (distance > 0 && $('dom').select('body').classList.contains('searchOpen')))
-			return $('dom').select('.sheet.add');
+		if((distance < 0 && !sheet) || (distance > 0 && $D('body').classList.contains('searchOpen')))
+			return $D('.sheet.add');
 		else if(sheet)
-			return $('dom').select('[data-id="'+sheet.city+'"]');
+			return $D('[data-id="'+sheet.city+'"]');
 		else
 			return null;
 	};
@@ -92,26 +93,33 @@ $_('weather').main(function(){
 			};
 			
 			var move= function(e){
+				e.preventDefault();
 				var touch= ($$.navigator.isTouch) ? e.touches.find(function(touch){ if(touch.identifier == this.touch) return touch; }.bind(this)) : e;
 				var distance= touch.screenX - this.start;
-				var activeSheet= $('dom').select('.sheet.active');
+				var activeSheet= $D('.sheet.active');
 				var nextSheet= App.getNextSheet(distance);
 				this.offset= distance / (nextSheet !== null ? 1 : 3);
 				
 				if(nextSheet){
 					var m= ((this.offset > 0 ? $$.innerWidth * -1 : $$.innerWidth) + this.offset);
 					if(nextSheet.classList.contains('add')){
-						if($('dom').select('body').classList.contains('searchOpen')){
+						if($D('body').classList.contains('searchOpen')){
 							m= (this.offset > 0 ? this.offset : 0);
 						}
 					}
-					nextSheet.style.setProperty('transform', 'translateX('+ m +'px)');
-					nextSheet.style.setProperty('transition', 'none');
+					nextSheet.css({
+						'-webkit-transform' : 'translateX('+ m +'px)',
+						'transform' : 'translateX('+ m +'px)',
+						'transition' : 'none'
+					});
 				}
 				if((nextSheet && !nextSheet.classList.contains('add')) || !nextSheet){
 					console.log(this.offset);
-					activeSheet.style.setProperty('transform', 'translateX('+ this.offset +'px)');
-					activeSheet.style.setProperty('transition', 'none');
+					activeSheet.css({
+						'-wekit-transform' : 'translateX('+ this.offset +'px)',
+						'transform' : 'translateX('+ this.offset +'px)',
+						'transition' : 'none'
+					});
 				}
 			}.bind(tracker);
 			$$.addEventListener(TOUCHMOVE, move);
@@ -127,25 +135,21 @@ $_('weather').main(function(){
 				
 				if((this.offset > ($$.innerWidth / 3)) && nextSheet){
 					if(!nextSheet.classList.contains('add')){
-						activeSheet.classList.add(directionTo);
-						activeSheet.classList.remove('active');
-						nextSheet.classList.remove(directionFrom);
-						nextSheet.classList.add('active');
+						activeSheet.classes(directionTo, '-active');
+						nextSheet.classes('-'+directionFrom, 'active');
 						App.index+= (directionTo == 'left' ? 1 : -1);
 					}else{
 						if($('dom').select('body').classList.contains('searchOpen') && directionTo == 'right')
-							$('dom').select('body').classList.remove('searchOpen');
+							$D('body').classes('-searchOpen');
 						else if(directionTo == 'left')
-							$('dom').select('body').classList.add('searchOpen');
+							$D('body').classes('searchOpen');
 					}
 				}
 				
-				activeSheet.style.removeProperty('transform');
-				activeSheet.style.removeProperty('transition');
+				activeSheet.css({});
 				
 				if(nextSheet){
-					nextSheet.style.removeProperty('transform');
-					nextSheet.style.removeProperty('transition');
+					nextSheet.css({});
 				}
 				
 				$$.removeEventListener(TOUCHMOVE, move);
@@ -157,17 +161,17 @@ $_('weather').main(function(){
 		var searchTracker= {
 			timeout : null,
 			process : function(list){
-				var target= $('dom').select('.add .results');
+				var target= $D('.add .results');
 				target.innerHTML= '';
 				list.forEach(function(item){
-					var element= $('dom').create('div');
+					var element= $D.create('div');
 					element.dataset.city= item.id;
 					element.textContent= item.name+', '+item.sys.country;
-					target.appendChild(element);
+					target.append(element);
 				});
 			}
 		};
-		$('dom').select('.add input').addEventListener('keydown', function(){
+		$D('.add input').addEventListener('keydown', function(){
 			if(searchTracker.timeout)
 				$$.clearTimeout(searchTracker.timeout);
 				
@@ -175,22 +179,21 @@ $_('weather').main(function(){
 				Net.searchCity(this.value.trim()).then(searchTracker.process);
 			}.bind(this), 2000);
 		});
-		$('dom').select('.add input').addEventListener('blur', function(){
+		$D('.add input').addEventListener('blur', function(){
 			$$.clearTimeout(searchTracker.timeout);
 			Net.searchCity(this.value.trim()).then(searchTracker.process);
 		});
 		
-		$('dom').select('.add .results').addEventListener('click', function(e){
+		$D('.add .results').addEventListener('click', function(e){
 			var sheet= new Sheet(e.target.dataset.city);
 			sheet.index= (App.sheets.last() ? App.sheets.last().index + 1 : 1); 
 			sheet.fetch().then(function(){
 				sheet.save();
 				sheet.render(true);
 				sheet.show();
-				$('dom').select('body').classList.remove('searchOpen');
-				$('dom').select('.sheet.active').classList.add('left', 'active');
-				$sh(sheet).classList.remove('right');
-				$sh(sheet).classList.add('active');
+				$D('body').classes('-searchOpen');
+				$D('.sheet.active').classes('left', 'active');
+				$sh(sheet).classes('-right', 'active');
 			});
 		});
 		
