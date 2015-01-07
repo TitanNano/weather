@@ -116,7 +116,7 @@ $_('weather').main(function(){
 				if((nextSheet && !nextSheet.classList.contains('add')) || !nextSheet){
 					console.log(this.offset);
 					activeSheet.css({
-						'-wekit-transform' : 'translateX('+ this.offset +'px)',
+						'-webkit-transform' : 'translateX('+ this.offset +'px)',
 						'transform' : 'translateX('+ this.offset +'px)',
 						'transition' : 'none'
 					});
@@ -192,7 +192,7 @@ $_('weather').main(function(){
 				sheet.render(true);
 				sheet.show();
 				$D('body').classes('-searchOpen');
-				$D('.sheet.active').classes('left', 'active');
+				$D('.sheet.active').classes('left', '-active');
 				$sh(sheet).classes('-right', 'active');
 			});
 		});
