@@ -12,11 +12,22 @@ body{
 	overflow: hidden;
 }
 
+div, input{
+	outline: none;
+}
+
+div{
+	-moz-user-select: none;
+	-webkit-user-select: none;
+	user-select: none;
+}
+
 .sheet{
 	position: absolute;
 	height: 100%;
 	width: 100%;
 	color: #fff;
+	transition: opacity 2s, -webkit-transform 0.4s, filter 0.4s;
 	transition: opacity 2s, transform 0.4s, filter 0.4s;
 }
 
@@ -29,10 +40,12 @@ body{
 }
 
 .sheet.left{
+	-webkit-transform: translateX(-100%);
 	transform: translateX(-100%);
 }
 
 .sheet.right{
+	-webkit-transform: translateX(100%);
 	transform: translateX(100%);
 }
 
@@ -119,18 +132,24 @@ body{
 	margin: calc(50vh - 25px) auto 0;
 	width: 50px;
 	height: 50px;
+	-webkit-animation-duration: 1.5s;
 	animation-duration: 1.5s;
+	-webkit-animation-name: spinner;
 	animation-name: spinner;
+	-webkit-animation-iteration-count: infinite;
 	animation-iteration-count: infinite;
+	-webkit-animation-timing-function: linear;
 	animation-timing-function: linear;
 }
 
-@keyframes spinner{
+@-webkit-keyframes spinner{
 	0%{
+		-webkit-transform: rotateZ(0deg);
 		transform: rotateZ(0deg);
 	}
 	
 	100%{
+		-webkit-transform: rotateZ(-360deg);
 		transform: rotateZ(-360deg);
 	}
 }
@@ -200,6 +219,7 @@ body{
     background-color: rgba(255, 255, 255, 0.2);
     padding: 10px;
     border-radius: 10px;
+	-webkit-transform: translateX(110%);
 	transform: translateX(110%);
 	box-sizing: border-box;
 }
@@ -209,6 +229,7 @@ body{
 }
 
 .searchOpen .sheet.add{
+	-webkit-transform: translateX(0%);
 	transform: translateX(0%);
 }
 
