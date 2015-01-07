@@ -6,7 +6,9 @@ $_('weather').main(function(){
 	
 	var App= this;
 //	$$.App= this;
-	var { Sheet, Storage, Net } = this.modules;
+	var Sheet = this.modules.Sheet;
+	var Storage = this.modules.Storage;
+	var Net = this.modules.Net;
 	
 	this.settings= {
 		celsius : true	
@@ -17,7 +19,7 @@ $_('weather').main(function(){
 	
 	this.getNextSheet= function(distance){
 		var sheet= App.sheets[App.index+(distance > 0 ? -1 : 1)];
-		if((distance < 0 && !sheet) || $('dom').select('body').classList.contains('searchOpen'))
+		if((distance < 0 && !sheet) || (distance > 0 && $('dom').select('body').classList.contains('searchOpen')))
 			return $('dom').select('.sheet.add');
 		else if(sheet)
 			return $('dom').select('[data-id="'+sheet.city+'"]');
@@ -107,6 +109,7 @@ $_('weather').main(function(){
 					nextSheet.style.setProperty('transition', 'none');
 				}
 				if((nextSheet && !nextSheet.classList.contains('add')) || !nextSheet){
+					console.log(this.offset);
 					activeSheet.style.setProperty('transform', 'translateX('+ this.offset +'px)');
 					activeSheet.style.setProperty('transition', 'none');
 				}
@@ -122,7 +125,7 @@ $_('weather').main(function(){
 					
 				if(this.offset < 0) this.offset*= -1;
 				
-				if((this.offset > ($$.innerWidth / 2)) && nextSheet){
+				if((this.offset > ($$.innerWidth / 3)) && nextSheet){
 					if(!nextSheet.classList.contains('add')){
 						activeSheet.classList.add(directionTo);
 						activeSheet.classList.remove('active');
@@ -198,7 +201,7 @@ $_('weather').main(function(){
 					sheet.render();
 				});
 			});
-		}, 60000 * 5);
+		}, 60000 * 15);
 	});
 
 });

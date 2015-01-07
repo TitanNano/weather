@@ -1,6 +1,7 @@
 $_('weather').module('Sheet', ['Net', 'Storage'], function(App, done){
 	
-	var { Net, Storage } = App.modules;
+	var Net = App.modules.Net;
+	var Storage = App.modules.Storage;
 	
 	var interface= function(city){
 		this.index= 0;
