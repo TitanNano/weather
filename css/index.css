@@ -12,7 +12,7 @@ body{
 	overflow: hidden;
 }
 
-div, input{
+div:focus, input:focus{
 	outline: none;
 }
 
@@ -54,6 +54,10 @@ div{
 	height: 100%;
 	width: 100%;
 	transition: opacity 1.5s;
+}
+
+body.ios .sheet > div:not(.spinner){
+	padding-top: 10px;
 }
 
 .bg.new{

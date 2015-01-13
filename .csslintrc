@@ -1,5 +1,7 @@
 {
 	"adjoining-classes" : false,
 	"box-sizing" : false,
-	"fallback-colors" : false
+	"fallback-colors" : false,
+	"outline-none" : false,
+	"compatible-vendor-prefixes" : false
 }
