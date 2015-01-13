@@ -34,12 +34,19 @@ $_('weather').main(function(){
 		localSheet.index= 0;
 		
 		localSheet.fetch().then(function(){
-			App.sheets.push(localSheet);
-			localSheet.render();
-			localSheet.save();
-			setTimeout(function(){
-				localSheet.show();
-			}, 100);
+			if(App.sheets.length === 0){
+				App.sheets.push(localSheet);
+				localSheet.render();
+				localSheet.save();
+				setTimeout(function(){
+					localSheet.show();
+				}, 100);
+			}else{
+				App.sheets.splice(0, 0, localSheet);
+				localSheet.render(true);
+				localSheet.save();
+				$sh(localSheet).classes('-right', 'left');
+			}
 		}, function(){
 			if(App.sheets.length < 1)
 				App.openAdd();
@@ -56,6 +63,10 @@ $_('weather').main(function(){
 	var $sh= function(sheet){
 		return $('dom').select('.sheet[data-id="'+ sheet.city +'"]');
 	};
+	
+	if(cordova){
+		$D('body').classes(cordova.platformId);
+	}
 	
 	Storage.getSheets().then(function(sheets){
 		sheets.forEach(function(sheet){
@@ -82,6 +93,9 @@ $_('weather').main(function(){
 					sheet.render(true);
 				});
 			});
+			if(!App.sheets.find(function(sheet){ if(sheet.city == 'local') return sheet; })){
+				App.createLocalSheet();
+			}
 		}
 		
 //		track sheet swtich

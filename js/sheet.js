@@ -23,6 +23,27 @@ $_('weather').module('Sheet', ['Net', 'Storage'], function(App, done){
 		};
 	};
 	
+	var directionMapping= [
+		{ key : 'N', value : 22.5 },
+		{ key : 'NE', value : 67.5 },
+		{ key : 'E', value : 112.5 },
+		{ key : 'SE', value : 157.5},
+		{ key : 'S', value : 202.5},
+		{ key : 'SW', value : 247.5},
+		{ key : 'W', value : 292.5},
+		{ key : 'NW', value : 337.5},
+		{ key : 'N', value : 360}
+	];
+	
+	var formatTime= function(dateTime){
+		var lang= $$.navigator.language;
+		if(lang == 'en-us' || lang == 'en-uk'){
+			return (dateTime.getHours() > 12 ? dateTime.getHours() - 12 : (dateTime.getHours() === 0 ? 12 : dateTime.getHours())) + ':' + dateTime.getMinutes() + (dateTime.getHours() < 12 ? ' am' : ' pm');
+		}else{
+			return dateTime.getHours() + ':' + dateTime.getMinutes();
+		}
+	};
+	
 	interface.prototype= {
 		fetch : function(data){
 			return new $$.Promise(function(done,error){
@@ -30,8 +51,8 @@ $_('weather').module('Sheet', ['Net', 'Storage'], function(App, done){
 					console.log(data);
 					if(data.cod){
 						this.sun= {
-							rise : (new Date(data.sys.sunrise * 1000)).toLocaleTimeString(),
-							set : (new Date(data.sys.sunset * 1000)).toLocaleTimeString()
+							rise : formatTime(new Date(data.sys.sunrise * 1000)),
+							set : formatTime(new Date(data.sys.sunset * 1000))
 						};
 						this.wind= data.wind;
 						this.country= data.sys.country;
@@ -51,8 +72,9 @@ $_('weather').module('Sheet', ['Net', 'Storage'], function(App, done){
 							longitude : e.coords.longitude,
 							lang : $$.navigator.language
 						}).then(process, error).then(done);
-					}, function(){
-						error();
+					}, function(e){
+						console.log(e);
+						error(e);
 					});
 				}else{
 					Net.fetchWeather({
@@ -91,8 +113,8 @@ $_('weather').module('Sheet', ['Net', 'Storage'], function(App, done){
 			element.querySelector('.location').textContent= (this.city == 'local' ? 'Local: ' : '') + this.cityLabel+', '+this.country;
 			element.querySelector('.temp').textContent= (App.settings.celsius ? Math.round(this.temp - 273.15) + '°C' : Math.round(this.temp - 255.37) + '°F');
 			element.querySelector('.type').textContent= this.wetherLabel;
-			element.querySelector('.wind .speed value').textContent= this.wind.speed;
-			element.querySelector('.wind .degree value').textContent= this.wind.deg;
+			element.querySelector('.wind .speed value').textContent= this.wind.speed + 'm/s';
+			element.querySelector('.wind .degree value').textContent= directionMapping.find(function(item){ if(item.value > this.wind.deg) return item; }.bind(this)).key;
 			element.querySelector('.sun .rise value').textContent= this.sun.rise;
 			element.querySelector('.sun .set value').textContent= this.sun.set;
 		},
