@@ -3,5 +3,6 @@
 	"box-sizing" : false,
 	"fallback-colors" : false,
 	"outline-none" : false,
-	"compatible-vendor-prefixes" : false
+	"compatible-vendor-prefixes" : false,
+    "order-alpabetical" : false
 }
