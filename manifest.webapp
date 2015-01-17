@@ -4,10 +4,10 @@
   "description": "a open Weathe App using the OpenWeatherMap API",
   "launch_path": "/index.html",
   "icons": {
-    "16": "/img/icons/icon16x16.png",
-    "48": "/img/icons/icon48x48.png",
-    "60": "/img/icons/icon60x60.png",
-    "128": "/img/icons/icon128x128.png"
+    "32": "/images/icon32.png",
+    "40": "/images/icon40.png",
+    "60": "/images/icon60.png",
+    "128": "/images/icon128.png"
   },
   "developer": {
     "name": "TitanNano",
