@@ -1,7 +1,7 @@
 {
-  "version": "0.1.0",
+  "version": "1.0.0",
   "name": "Weather",
-  "description": "a open Weathe App using the OpenWeatherMap API",
+  "description": "An open weathe app using the OpenWeatherMap API",
   "launch_path": "/index.html",
   "icons": {
     "32": "/images/icon32.png",
@@ -10,7 +10,7 @@
     "128": "/images/icon128.png"
   },
   "developer": {
-    "name": "TitanNano",
+    "name": "TitanNano.de",
     "url": "http://titannano.de"
   },
   "type": "privileged",
