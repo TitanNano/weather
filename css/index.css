@@ -280,3 +280,97 @@ body.ios .sheet > div:not(.spinner){
 .sheet.add .results div:active{
 	background: rgba(0, 0, 0, 0.1);
 }
+
+.sheet:not([data-id="local"]) .close{
+    height: 40px;
+    width: 40px;
+    margin: 7vh auto 0 auto;
+    background: url(/images/remove.png);
+    background-size: contain;
+}
+
+.overflow{
+    position: absolute;
+    height: 154vh;
+    width: 154vh;
+    border-radius: 100%;
+    background-color: rgba(201, 198, 198, 0.75);
+    right: -40vh;
+    bottom: -40vh;
+    transition: height .5s linear, width .5s linear;
+}
+
+.overflow.closed{
+    height: 0%;
+    width: 0%;
+}
+
+.overflow.transOff{
+    transition: none;
+}
+
+.overflow.active{
+    left: 0;
+    bottom: 0;
+    height: 100%;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 10px;
+    border-radius: 0;
+}
+
+.info{
+    position: absolute;
+    right: 16px;
+    bottom: 16px;
+    border: 1px solid #FFF;
+    border-radius: 100%;
+    height: 21px;
+    width: 21px;
+    text-align: center;
+    line-height: 16px;
+    font-size: 16px;
+    padding: 3px 0px;
+    box-sizing: border-box;
+    box-shadow: 2px 2px 0px rgba(0, 0, 0, 0.2), 2px 2px 0px rgba(0, 0, 0, 0.2) inset;
+    color: rgb(255, 255, 255);
+    text-shadow: 1px 1px 0px rgba(0, 0, 0, 0.2);
+    font-weight: 700;
+}
+
+.about{
+    border-radius: 5px;
+    background-color: rgb(234, 234, 234);
+    padding: 15px;
+    height: 100%;
+    box-sizing: border-box;
+    opacity: 0;
+    transition: opacity .3s;
+}
+
+.overflow.visible .about{
+    opacity: 1;
+}
+
+.about div{
+    padding-bottom: 15px;
+}
+
+.about .title{
+    font-size: 25px;
+    display: table;
+}
+
+.about .title span{
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.about span.icon{
+    background: url(/images/icon128.png);
+    background-size: contain;
+    height: 55px;
+    width: 55px;
+    display: inline-block;
+    margin-right: 10px;
+}
