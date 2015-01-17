@@ -20,6 +20,8 @@ $_('weather').module('DOM', [], function(App, done){
 			var list= this.className.split(' ');
 			var add= [];
 			var remove= [];
+            var target= this;
+
 			classes.forEach(function(item){
 				if(item.substr(0, 1) == '-')
 					remove.push(item.substr(1));
@@ -30,13 +32,19 @@ $_('weather').module('DOM', [], function(App, done){
 			});
 
 			remove.forEach(function(item){
-				if(list.indexOf(item) > -1)
+				if(list.indexOf(item) > -1){
 					list.splice(list.indexOf(item), 1);
+                    var event= new CustomEvent('classchange', {detail : { name : item, removed : true }});
+                    target.dispatchEvent(event);
+                }
 			});
 
 			add.forEach(function(item){
-				if(list.indexOf(item) < 0)
+				if(list.indexOf(item) < 0){
 					list.push(item);
+                    var event= new CustomEvent('classchange', {detail : { name : item, removed : false }});
+                    target.dispatchEvent(event);
+                }
 			});
 			
 			this.className= list.join(' ');
@@ -87,13 +95,18 @@ $_('weather').module('DOM', [], function(App, done){
 			this.parentNode.removeChild(this);
 		};
 
+        var select= function(string){
+            return dom(this.querySelector(string));
+        };
+
 		var features= {
 			append : append,
 			classes : classes,
 			css : css,
 			replace : replace,
 			remove : remove,
-			transition : transition
+			transition : transition,
+            select : select
 		};
 
 		if(typeof item == 'string'){
