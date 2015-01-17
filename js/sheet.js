@@ -136,7 +136,10 @@ $_('weather').module('Sheet', ['Net', 'Storage'], function(App, done){
 		
 		save : function(){
 			Storage.storeSheet(this);
-		}
+		},
+        delete : function(){
+            Storage.deleteSheet(this);
+        }
 	};
 	
 	interface.restore= function(dump){

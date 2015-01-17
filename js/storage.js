@@ -70,6 +70,21 @@ $_('weather').module('Storage', [], function(App, ready){
 					done(list);
 				};
 			});
-		}
+		},
+
+        deleteSheet : function(sheet){
+			return new Promise(function(done){
+				sheet= sheet.dump();
+				var request= db.transaction(['sheets'], 'readwrite').objectStore('sheets').delete(sheet.city);
+
+				request.onsuccess= function(){
+					done();
+				};
+
+				request.onerror= function(){
+					$$.console.error('faild to delete sheet!');
+				};
+			});
+        }
 	};
 });
