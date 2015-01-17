@@ -4,5 +4,5 @@
 	"fallback-colors" : false,
 	"outline-none" : false,
 	"compatible-vendor-prefixes" : false,
-    "order-alpabetical" : false
+    "order-alphabetical" : false
 }
