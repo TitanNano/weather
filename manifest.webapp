@@ -16,8 +16,12 @@
   "type": "privileged",
   "permissions": {
   	"geolocation": {
-    	"description": "Required for fetching the local weather informations"
-  	}
+    	"description": "Required for fetching the local weather informations."
+  	},
+    "storage" : {
+        "description": "Required for storing the weather information on the device."
+    }
+
   },
   "messages": [],
   "activities": {},
