@@ -56,7 +56,7 @@ div{
 	transition: opacity 1.5s;
 }
 
-body.ios .sheet > div:not(.spinner){
+.ios .sheet > div:not(.spinner){
 	padding-top: 10px;
 }
 
@@ -289,6 +289,51 @@ body.ios .sheet > div:not(.spinner){
     background-size: contain;
 }
 
+.dots{
+    position: absolute;
+    width: 100%;
+    left: 0;
+    bottom: 3vh;
+    text-align: center;
+}
+
+.dots .item{
+    display: inline-block;
+    height: 10px;
+    width: 10px;
+    margin-right: 5px;
+    border-radius: 5px;
+    background-color: rgba(98, 96, 96, 0.56);
+}
+
+body:not(.searchOpen) .dots .item.active{
+    background-color: rgb(235, 235, 235);
+}
+
+.dots .item.local{
+    background-image: url("/images/location.png");
+    background-color: transparent;
+    background-size: contain;
+    height: 13px;
+    width: 13px;
+    margin-right: 5px;
+    background-position: 0 1px;
+}
+
+body:not(.searchOpen) .dots .item.local.active{
+    background-color: transparent;
+    background-image: url("/images/location-active.png");
+}
+
+.dots .add{
+    color: rgba(98, 96, 96, 0.56);
+    font-weight: 900;
+}
+
+.searchOpen .dots .add{
+    color: rgb(235, 235, 235);
+}
+
 .overflow{
     position: absolute;
     height: 154vh;
@@ -301,8 +346,8 @@ body.ios .sheet > div:not(.spinner){
 }
 
 .overflow.closed{
-    height: 0%;
-    width: 0%;
+    height: 0;
+    width: 0;
 }
 
 .overflow.transOff{
@@ -330,11 +375,11 @@ body.ios .sheet > div:not(.spinner){
     text-align: center;
     line-height: 16px;
     font-size: 16px;
-    padding: 3px 0px;
+    padding: 3px 0;
     box-sizing: border-box;
-    box-shadow: 2px 2px 0px rgba(0, 0, 0, 0.2), 2px 2px 0px rgba(0, 0, 0, 0.2) inset;
+    box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.2), 2px 2px 0 rgba(0, 0, 0, 0.2) inset;
     color: rgb(255, 255, 255);
-    text-shadow: 1px 1px 0px rgba(0, 0, 0, 0.2);
+    text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.2);
     font-weight: 700;
 }
 
@@ -366,7 +411,7 @@ body.ios .sheet > div:not(.spinner){
     vertical-align: middle;
 }
 
-.about span.icon{
+.about .icon{
     background: url(/images/icon128.png);
     background-size: contain;
     height: 55px;

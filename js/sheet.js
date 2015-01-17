@@ -1,7 +1,8 @@
-$_('weather').module('Sheet', ['Net', 'Storage'], function(App, done){
+$_('weather').module('Sheet', ['Net', 'Storage', 'DOM'], function(App, done){
 	
 	var Net = App.modules.Net;
 	var Storage = App.modules.Storage;
+    var $D= App.modules.DOM;
 	
 	var interface= function(city){
 		this.index= 0;
@@ -88,15 +89,29 @@ $_('weather').module('Sheet', ['Net', 'Storage'], function(App, done){
 		render : function(hidden){
 			var element= null;
 			
-			if((element= $('dom').select('[data-id="'+this.city+'"]')) === null){
-				element= $('dom').select('#sheet').content.cloneNode(true);
-				element.querySelector('.sheet').dataset.id= this.city;
+			if((element= $D('[data-id="'+this.city+'"]')) === null){
+                var indexList= $D('.indexList');
+                var indexDot= $D.create('span');
+
+                if(this.city == 'local'){
+                    indexDot.classes('item', 'local');
+                }else{
+                    indexDot.classes('item');
+                }
+                indexList.append(indexDot);
+				element= $D($D('#sheet').content.cloneNode(true));
+				element.select('.sheet').dataset.id= this.city;
+                element.select('.sheet').addEventListener('classchange', function(e){
+                    if(e.detail.name == 'active'){
+                        indexDot.classes((e.detail.removed ? '-active' : 'active'));
+                    }
+                });
 				if(hidden)
-					element.querySelector('.sheet').classList.add('right');
+					element.select('.sheet').classes('right');
 				else
-					element.querySelector('.sheet').classList.add('active');
-				$('dom').select('body').insertBefore(element, $('dom').select('.sheet.add'));
-				element= $('dom').select('[data-id="'+this.city+'"]');
+					element.select('.sheet').classes('active');
+				$D('body').insertBefore(element, $('dom').select('.sheet.add'));
+				element= $D('[data-id="'+this.city+'"]');
 			}
 			
 			var bg= element.querySelector('.bg');
