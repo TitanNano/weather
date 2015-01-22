@@ -13,7 +13,7 @@
     "name": "TitanNano.de",
     "url": "http://titannano.de"
   },
-  "type": "privileged",
+  "type": "web",
   "permissions": {
   	"geolocation": {
     	"description": "Required for fetching the local weather informations."
@@ -28,7 +28,6 @@
   "installs_allowed_from": [
     "*"
   ],
-  "origin": "app://weather-app.com",
   "locales": {},
   "default_locale": "en"
 }
