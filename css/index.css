@@ -49,14 +49,14 @@ div{
 	transform: translateX(100%);
 }
 
-.sheet > div:not(.spinner){
+.sheet > div:not(.spinner-container){
 	position: absolute;
 	height: 100%;
 	width: 100%;
 	transition: opacity 1.5s;
 }
 
-.ios .sheet > div:not(.spinner){
+.ios .sheet > div:not(.spinner-container){
 	padding-top: 10px;
 }
 
@@ -129,11 +129,21 @@ div{
 	text-align: right;
 }
 
+.sheet .spinner-container{
+    margin-top: calc(50vh - 35px);
+    position: relative;
+}
+
+.sheet .label{
+    margin-top: 2rem;
+    text-align: center;
+}
+
 /*  Spinner */
 
 .spinner{
 	position: relative;
-	margin: calc(50vh - 25px) auto 0;
+	margin: 0 auto;
 	width: 50px;
 	height: 50px;
 	-webkit-animation-duration: 1.5s;
@@ -170,7 +180,7 @@ div{
 	}
 }
 
-.spinner.hidden, .searchOpen .spinner{
+.spinner.hidden, .searchOpen .spinner-container{
 	display: none;
 }
 

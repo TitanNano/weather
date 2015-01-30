@@ -33,9 +33,17 @@ $_('weather').main(function(){
             $('dom').select('.sheet').classList.remove('hidden');
         }
 		var localSheet= new Sheet('local');
-		localSheet.index= 0;
+		var timeout= null;
+        localSheet.index= 0;
+
+        if(App.sheets.length < 1){
+            timeout= setTimeout(function(){
+                App.openAdd();
+            }, 30000);
+        }
 		
 		localSheet.fetch().then(function(){
+            if(timeout) clearTimeout(timeout);
 			if(App.sheets.length === 0){
 				App.sheets.push(localSheet);
 				localSheet.render();
