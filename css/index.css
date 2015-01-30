@@ -1,9 +1,9 @@
-body{
+body, html{
 	position: absolute;
 	left: 0;
 	top: 0;
-	width: 100%;
-	height: 100%;
+	width: 100vw;
+	height: 100vh;
 	padding: 0;
 	margin: 0;
 	font-family: sans-serif;
@@ -170,7 +170,7 @@ div{
 	}
 }
 
-.spinner.hidden{
+.spinner.hidden, .searchOpen .spinner{
 	display: none;
 }
 
