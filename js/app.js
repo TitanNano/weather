@@ -59,6 +59,7 @@ $_('weather').main(function(){
 				$sh(localSheet).classes('-right', 'left');
 			}
 		}, function(){
+            if(timeout) clearTimeout(timeout);
 			if(App.sheets.length < 1)
 				App.openAdd();
 		});
