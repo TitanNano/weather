@@ -1,5 +1,5 @@
 {
-  "version": "1.0.1",
+  "version": "1.0.2",
   "name": "Weather",
   "description": "An open weathe app using the OpenWeatherMap API",
   "launch_path": "/index.html",
